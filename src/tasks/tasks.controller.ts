@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ApiSuccessModel } from './api.response.model';
 import { Task } from './task.model';
 import { TasksService } from './tasks.service';
 
@@ -6,7 +7,7 @@ import { TasksService } from './tasks.service';
 export class TasksController {
   constructor(private tasksService: TasksService) {}
   @Get()
-  getAllTasks(): Task[] {
+  getAllTasks(): ApiSuccessModel {
     return this.tasksService.getAllTasks();
   }
 
@@ -14,9 +15,8 @@ export class TasksController {
   createTask(
     @Body('title') title: string,
     @Body('description') description: string,
-  ): Task {
+  ): ApiSuccessModel {
     console.log(title, description);
-
     return this.tasksService.createTask(title, description);
   }
 }
